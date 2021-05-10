@@ -16,16 +16,18 @@ const text = fs.readFileSync("../MOCK_TEXT.txt", "utf8");
 const jsonData = require("../MOCK_DATA.json");
 
 app.get("/plaintext", (req, res) => {
-  res.send(text);
+  res.set("Content-Type", "text/plain").send(text);
 });
 
 app.get("/database", (req, res) => {
   db.result("SELECT * FROM books").then(function (data) {
-    res.send(
-      data.rows
-        .map((row) => `${row.id}, ${row.title}, ${row.author}`)
-        .join("\n")
-    );
+    res
+      .set("Content-Type", "text/plain")
+      .send(
+        data.rows
+          .map((row) => `${row.id}, ${row.title}, ${row.author}`)
+          .join("\n")
+      );
   });
 });
 
