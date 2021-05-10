@@ -32,7 +32,7 @@ fastify.get("/json", async (request, reply) => {
 // Run the server!
 const start = async () => {
   try {
-    await fastify.listen(3000);
+    await fastify.listen(3000, "0.0.0.0");
     console.log("Fastify server running");
   } catch (err) {
     fastify.log.error(err);
