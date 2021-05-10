@@ -22,7 +22,7 @@ fastify.get("/database", async (request, reply) => {
   const client = await fastify.pg.connect();
   const { rows } = await client.query("SELECT * FROM books");
   client.release();
-  return rows;
+  return rows.map((row) => `${row.id}, ${row.title}, ${row.author}`).join("\n");
 });
 
 fastify.get("/json", async (request, reply) => {
